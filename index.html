@@ -3,20 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Etch a Sketch</title>
+    <title>Pix a Sketch</title>
     <link rel="stylesheet" href="./style.css">
     <script src="./index.js" defer></script>
 </head>
 <body>
+    <div class="header">
+        <h1>Pix-a-Sketch</h1>
+    </div>
+
     <div class="main-container">
-        <div class="header">
-            <h3>Grid density:</h3>
-            <button class="gd-low">Low</button>
-            <button class="gd-medium">Medium</button>
-            <button class="gd-high">High</button>
+        <div class="top-toolbox flex-containers">
+            <div>Color picker</div>
+            <div>Eraser</div>
         </div>
-        <div class="sketchpad-container">
+
+        <div class="sketchpad-container"></div>
+
+        <div class="bottom-toolbox">
+            <div class="gd-container flex-containers">
+                <h3>Grid density:</h3>
+                <div class="gd-low">Low</div>
+                <div class="gd-medium">Medium</div>
+                <div class="gd-high">High</div>
+            </div>
+            
+            <div class="clear-btn">Clear</div>
         </div>
+    </div>
+
+    <div class="footer">
+        Copyright &copy; iSubhamMani
     </div>
 </body>
 </html>

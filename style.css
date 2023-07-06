@@ -1,14 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;800&display=swap');
+
 *{
     padding: 0;
     margin: 0;
+    color: #0a060af2;
+}
+
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #0a060af2;
+    font-family: 'Rubik', sans-serif;
 }
 
 .main-container{
-    min-height: 100vh;
+    flex: 1;
     width: 578px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+}
+
+.header{
+    text-align: center;
+    background-color: #ef5353;
+    padding: 10px 4px;
+}
+
+.header h1{
+    font-size: 44px;
+    color: #0a060af2;
+    font-weight: 800;
+}
+
+.flex-containers{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.flex-containers div{
+    background-color: #ef5353;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.main-container .sketchpad-container{
+    background-color: #fff;
 }
 
 .sketchpad-container .grid-container{
@@ -16,12 +60,41 @@
     height: 576px;
     display: flex;
     flex-wrap: wrap;
-    border-left: 2px solid #000;
-    border-bottom: 2px solid #000;
+    border-left: 2px solid #0a060af2;
+    border-bottom: 2px solid #0a060af2;
+}
+
+.main-container .bottom-toolbox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-container .bottom-toolbox h3{
+    color: #fff;
+    font-weight: 500;
+    font-size: 20px;
 }
 
 .grid{
     box-sizing: border-box;
-    border-top: 2px solid #000;
-    border-right: 2px solid #000;
+    border-top: 2px solid #0a060af2;
+    border-right: 2px solid #0a060af2;
+}
+
+.main-container .bottom-toolbox .clear-btn{
+    background-color: #ef5353;
+    font-size: 18px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+
+.footer{
+    color: #fff;
+    padding: 8px 4px;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 400;
 }
