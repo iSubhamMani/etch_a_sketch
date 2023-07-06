@@ -3,7 +3,9 @@ const gd_low = 16;
 const gd_med = 32;
 const gd_high = 64;
 
-const mainContainer = document.querySelector('.sketchpad-container');
+let mouseDown = false;
+
+const sketchPadContainer = document.querySelector('.sketchpad-container');
 const gdLowBtn = document.querySelector('.gd-low');
 const gdMedBtn = document.querySelector('.gd-medium');
 const gdHighBtn = document.querySelector('.gd-high');
@@ -26,6 +28,8 @@ gdHighBtn.addEventListener('click', () => {
     createGrids(gd_high, gd_high);
 });
 
+// Add event listeners to all the grids
+
 function getGridContainer(){
     const gridContainer = document.createElement('div');
     gridContainer.classList.add('grid-container');
@@ -44,7 +48,7 @@ function createGrids(gridDensityWidth, gridDensityHeight){
 
     // create grid container first
     const gridContainer = getGridContainer();
-    mainContainer.append(gridContainer);
+    sketchPadContainer.append(gridContainer);
 
     // create the grids
     for(let row = 0; row < gridDensityHeight; row++){
@@ -53,7 +57,37 @@ function createGrids(gridDensityWidth, gridDensityHeight){
             grid.classList.add('grid');
             grid.style.width = `${resolution/gridDensityWidth}px`;
             grid.style.height = `${resolution/gridDensityHeight}px`;
+
             gridContainer.append(grid);
         }
     }
+
+    addGridEvents();
+}
+
+function addGridEvents(){
+    const grids = document.querySelectorAll('.grid');
+
+    grids.forEach(grid => {
+        grid.addEventListener('mousedown', (e) =>{
+            const currentGrid = e.target;
+            currentGrid.style.backgroundColor = 'black';
+            mouseDown = true;
+        })
+    
+        grid.addEventListener('mouseup', () => {
+            //console.log("Mouse up");
+            mouseDown = false;
+        })
+    
+        grid.addEventListener('mouseover', (e) => {
+            if(mouseDown === false) return;
+            const currentGrid = e.target;
+            currentGrid.style.backgroundColor = 'black';
+        })
+    })
+}
+
+function drawPixels(){
+
 }
