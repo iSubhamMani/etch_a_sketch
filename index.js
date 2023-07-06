@@ -1,4 +1,4 @@
-const mainContainer = document.querySelector('.main-container');
+const mainContainer = document.querySelector('.sketchpad-container');
 const resolution = 576;
 
 function getGridContainer(){
@@ -26,7 +26,7 @@ function createGrids(gridDensityWidth, gridDensityHeight){
             grid.classList.add('grid');
             grid.style.width = `${resolution/gridDensityWidth}px`;
             grid.style.height = `${resolution/gridDensityHeight}px`;
-          
+
             gridContainer.append(grid);
         }
     }
