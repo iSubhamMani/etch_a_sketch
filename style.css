@@ -53,6 +53,7 @@ body{
 
 .main-container .sketchpad-container{
     background-color: #fff;
+    box-shadow: 3px 3px 5px rgba(240, 255, 238, 0.4);
 }
 
 .sketchpad-container .grid-container{
@@ -62,6 +63,12 @@ body{
     flex-wrap: wrap;
     border-left: 2px solid #0a060af2;
     border-bottom: 2px solid #0a060af2;
+}
+
+.grid{
+    box-sizing: border-box;
+    border-top: 2px solid #0a060af2;
+    border-right: 2px solid #0a060af2;
 }
 
 .main-container .bottom-toolbox{
@@ -76,18 +83,13 @@ body{
     font-size: 20px;
 }
 
-.grid{
-    box-sizing: border-box;
-    border-top: 2px solid #0a060af2;
-    border-right: 2px solid #0a060af2;
-}
-
 .main-container .bottom-toolbox .clear-btn{
     background-color: #ef5353;
     font-size: 18px;
     padding: 6px 12px;
     border-radius: 4px;
     font-weight: 500;
+    cursor: pointer;
 }
 
 
