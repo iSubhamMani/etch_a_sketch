@@ -3,18 +3,15 @@
     margin: 0;
 }
 
-body{
-    min-height: 100vh;
-}
-
 .main-container{
     min-height: 100vh;
+    width: 578px;
+    margin: 0 auto;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
 }
 
-.main-container .grid-container{
+.sketchpad-container .grid-container{
     width: 576px;
     height: 576px;
     display: flex;
@@ -27,5 +24,4 @@ body{
     box-sizing: border-box;
     border-top: 2px solid #000;
     border-right: 2px solid #000;
-
 }
