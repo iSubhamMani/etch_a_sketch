@@ -1,5 +1,30 @@
-const mainContainer = document.querySelector('.sketchpad-container');
 const resolution = 576;
+const gd_low = 16;
+const gd_med = 32;
+const gd_high = 64;
+
+const mainContainer = document.querySelector('.sketchpad-container');
+const gdLowBtn = document.querySelector('.gd-low');
+const gdMedBtn = document.querySelector('.gd-medium');
+const gdHighBtn = document.querySelector('.gd-high');
+
+// Create Grid at start
+createGrids(gd_low, gd_low);
+
+gdLowBtn.addEventListener('click', () => {
+    removeGridContainer();
+    createGrids(gd_low, gd_low);
+});
+
+gdMedBtn.addEventListener('click', () => {
+    removeGridContainer();
+    createGrids(gd_med, gd_med);
+});
+
+gdHighBtn.addEventListener('click', () => {
+    removeGridContainer();
+    createGrids(gd_high, gd_high);
+});
 
 function getGridContainer(){
     const gridContainer = document.createElement('div');
@@ -10,6 +35,8 @@ function getGridContainer(){
 
 function removeGridContainer(){
     const gridContainer = document.querySelector('.grid-container');
+    if(gridContainer === null) return;
+
     gridContainer.remove();
 }
 
