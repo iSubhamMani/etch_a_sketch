@@ -1,4 +1,5 @@
 const mainContainer = document.querySelector('.main-container');
+const resolution = 576;
 
 function getGridContainer(){
     const gridContainer = document.createElement('div');
@@ -23,8 +24,8 @@ function createGrids(gridDensityWidth, gridDensityHeight){
         for(let column = 0; column < gridDensityWidth; column++){
             const grid = document.createElement('div');
             grid.classList.add('grid');
-            grid.style.width = `${480/gridDensityWidth}px`;
-            grid.style.height = `${480/gridDensityHeight}px`;
+            grid.style.width = `${resolution/gridDensityWidth}px`;
+            grid.style.height = `${resolution/gridDensityHeight}px`;
           
             gridContainer.append(grid);
         }
