@@ -1,3 +1,3 @@
-# etch_a_sketch
+# pix_a_sketch
 
-Etch-a-Sketch project using HTML, CSS & JS.
+An Etch-a-Sketch like project made using HTML, CSS & JS.
