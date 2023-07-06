@@ -3,7 +3,7 @@ const gd_low = 16;
 const gd_med = 32;
 const gd_high = 64;
 
-const mainContainer = document.querySelector('.sketchpad-container');
+const sketchPadContainer = document.querySelector('.sketchpad-container');
 const gdLowBtn = document.querySelector('.gd-low');
 const gdMedBtn = document.querySelector('.gd-medium');
 const gdHighBtn = document.querySelector('.gd-high');
@@ -44,7 +44,7 @@ function createGrids(gridDensityWidth, gridDensityHeight){
 
     // create grid container first
     const gridContainer = getGridContainer();
-    mainContainer.append(gridContainer);
+    sketchPadContainer.append(gridContainer);
 
     // create the grids
     for(let row = 0; row < gridDensityHeight; row++){
