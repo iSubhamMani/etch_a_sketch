@@ -1,3 +1,3 @@
 # etch_a_sketch
 
-Variable Grid Density options under development.
+Etch-a-Sketch project using HTML, CSS & JS.
