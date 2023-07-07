@@ -4,12 +4,14 @@ const gd_med = 32;
 const gd_high = 64;
 
 let mouseDown = false;
+let eraserActive = false;
 
 const sketchPadContainer = document.querySelector('.sketchpad-container');
 const gdLowBtn = document.querySelector('.gd-low');
 const gdMedBtn = document.querySelector('.gd-medium');
 const gdHighBtn = document.querySelector('.gd-high');
 const clearBtn = document.querySelector('.clear-btn');
+const eraserBtn = document.querySelector('.eraser-btn');
 
 // Create Grid at start
 createGrids(gd_low, gd_low);
@@ -31,7 +33,17 @@ gdHighBtn.addEventListener('click', () => {
 
 clearBtn.addEventListener('click', () => {
     clearGrid();
-})
+});
+
+eraserBtn.addEventListener('click', () => {
+    if(eraserActive === false){
+        eraserActive = true;
+        eraseGrids();
+    }
+    else{
+        eraserActive = false;
+    }
+});
 
 // Add event listeners to all the grids
 
@@ -67,14 +79,15 @@ function createGrids(gridDensityWidth, gridDensityHeight){
         }
     }
 
-    addGridEvents();
+    addGridDrawEvents();
 }
 
-function addGridEvents(){
+function addGridDrawEvents(){
     const grids = document.querySelectorAll('.grid');
 
     grids.forEach(grid => {
         grid.addEventListener('mousedown', (e) =>{
+            if(eraserActive) return;
             const currentGrid = e.target;
             currentGrid.style.backgroundColor = 'black';
             mouseDown = true;
@@ -85,6 +98,7 @@ function addGridEvents(){
         })
     
         grid.addEventListener('mouseover', (e) => {
+            if(eraserActive) return;
             if(mouseDown === false) return;
             
             const currentGrid = e.target;
@@ -104,6 +118,44 @@ function addGridEvents(){
         })
     })
 }
+
+function eraseGrids(){
+    const grids = document.querySelectorAll('.grid');
+
+    grids.forEach(grid => {
+        grid.addEventListener('mousedown', (e) =>{
+            if(eraserActive === false) return;
+            const currentGrid = e.target;
+            currentGrid.style.backgroundColor = 'white';
+            mouseDown = true;
+
+            document.addEventListener('mouseup', () => {
+                mouseDown = false;
+            })
+        })
+    
+        grid.addEventListener('mouseover', (e) => {
+            if(eraserActive === false) return;
+            if(mouseDown === false) return;
+            
+            const currentGrid = e.target;
+            currentGrid.style.backgroundColor = 'white';
+        })
+
+        grid.addEventListener('dragstart', (e) => {
+            e.preventDefault();
+        })
+
+        grid.addEventListener('dragend', (e) => {
+            e.preventDefault();
+        })
+
+        grid.addEventListener('drop', (e) => {
+            e.preventDefault();
+        })
+    })
+}
+
 
 function clearGrid(){
     const grids = document.querySelectorAll('.grid');
