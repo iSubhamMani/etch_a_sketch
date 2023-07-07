@@ -4,7 +4,6 @@ const gd_med = 32;
 const gd_high = 64;
 
 let mouseDown = false;
-let eraserActive = false;
 
 const sketchPadContainer = document.querySelector('.sketchpad-container');
 const gdLowBtn = document.querySelector('.gd-low');
