@@ -14,6 +14,50 @@ const gdHighBtn = document.querySelector('.gd-high');
 const clearBtn = document.querySelector('.clear-btn');
 const eraserBtn = document.querySelector('.eraser-btn');
 
+// Color picker
+const pickr = Pickr.create({
+    el: '.color-picker',
+    theme: 'monolith', // or 'monolith', or 'nano'
+    comparison: false,
+
+    swatches: [
+        'rgba(244, 67, 54, 1)',
+        'rgba(233, 30, 99, 0.95)',
+        'rgba(156, 39, 176, 0.9)',
+        'rgba(103, 58, 183, 0.85)',
+        'rgba(63, 81, 181, 0.8)',
+        'rgba(33, 150, 243, 0.75)',
+        'rgba(3, 169, 244, 0.7)',
+        'rgba(0, 188, 212, 0.7)',
+        'rgba(0, 150, 136, 0.75)',
+        'rgba(76, 175, 80, 0.8)',
+        'rgba(139, 195, 74, 0.85)',
+        'rgba(205, 220, 57, 0.9)',
+        'rgba(255, 235, 59, 0.95)',
+        'rgba(255, 193, 7, 1)'
+    ],
+
+    components: {
+
+        // Main components
+        preview: true,
+        opacity: true,
+        hue: true,
+
+        // Input / output Options
+        interaction: {
+            hex: true,
+            rgba: true,
+            hsla: false,
+            hsva: false,
+            cmyk: false,
+            input: true,
+            clear: true,
+            save: true
+        }
+    }
+});
+
 // default settings at startup
 defaultSettings();
 
@@ -105,32 +149,14 @@ function createGrids(gridDensityWidth, gridDensityHeight){
         }
     }
 
-    addGridDrawEvents();
+    addGridEvents();
+    drawGrids();
 }
 
-function addGridDrawEvents(){
+function addGridEvents(){
     const grids = document.querySelectorAll('.grid');
 
     grids.forEach(grid => {
-        grid.addEventListener('mousedown', (e) =>{
-            if(eraserActive) return;
-            const currentGrid = e.target;
-            currentGrid.style.backgroundColor = 'black';
-            mouseDown = true;
-
-            document.addEventListener('mouseup', () => {
-                mouseDown = false;
-            })
-        })
-    
-        grid.addEventListener('mouseover', (e) => {
-            if(eraserActive) return;
-            if(mouseDown === false) return;
-            
-            const currentGrid = e.target;
-            currentGrid.style.backgroundColor = 'red';
-        })
-
         grid.addEventListener('dragstart', (e) => {
             e.preventDefault();
         })
@@ -182,11 +208,44 @@ function eraseGrids(){
     })
 }
 
-
 function clearGrid(){
     const grids = document.querySelectorAll('.grid');
 
     grids.forEach(grid => {
         grid.style.backgroundColor = 'white';
     })
+}
+
+function drawGrids(){
+    const grids = document.querySelectorAll('.grid');
+
+    pickr.on('change', (color) => {
+        let selectedColor = color.toRGBA();
+
+        grids.forEach(grid => {
+            grid.addEventListener('mousedown', (e) =>{
+                if(eraserActive) return;
+                const currentGrid = e.target;
+                    
+                currentGrid.style.backgroundColor = `rgba(${selectedColor[0]}, ${selectedColor[1]}, 
+                    ${selectedColor[2]}, ${selectedColor[3]})`;
+        
+                mouseDown = true;
+        
+                document.addEventListener('mouseup', () => {
+                    mouseDown = false;
+                })
+            })
+            
+            grid.addEventListener('mouseover', (e) => {
+                if(eraserActive) return;
+                if(mouseDown === false) return;
+                    
+                const currentGrid = e.target;
+        
+                currentGrid.style.backgroundColor = `rgba(${selectedColor[0]}, ${selectedColor[1]}, 
+                    ${selectedColor[2]}, ${selectedColor[3]})`;
+            })
+        })
+    });
 }
