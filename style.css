@@ -83,6 +83,10 @@ body{
     font-size: 20px;
 }
 
+.main-container .bottom-toolbox div{
+    transition: 0.3s;
+}
+
 .main-container .bottom-toolbox .clear-btn{
     background-color: #ef5353;
     font-size: 18px;
@@ -90,8 +94,8 @@ body{
     border-radius: 4px;
     font-weight: 500;
     cursor: pointer;
+    transition: 0.3s;
 }
-
 
 .footer{
     color: #fff;
