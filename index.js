@@ -73,17 +73,31 @@ function addGridEvents(){
             const currentGrid = e.target;
             currentGrid.style.backgroundColor = 'black';
             mouseDown = true;
-        })
-    
-        grid.addEventListener('mouseup', () => {
-            //console.log("Mouse up");
-            mouseDown = false;
+            console.log("mouse down");
+
+            document.addEventListener('mouseup', () => {
+                console.log("Mouse up");
+                mouseDown = false;
+            })
         })
     
         grid.addEventListener('mouseover', (e) => {
             if(mouseDown === false) return;
+            
             const currentGrid = e.target;
-            currentGrid.style.backgroundColor = 'black';
+            currentGrid.style.backgroundColor = 'red';
+        })
+
+        grid.addEventListener('dragstart', (e) => {
+            e.preventDefault();
+        })
+
+        grid.addEventListener('dragend', (e) => {
+            e.preventDefault();
+        })
+
+        grid.addEventListener('drop', (e) => {
+            e.preventDefault();
         })
     })
 }
