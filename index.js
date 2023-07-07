@@ -2,6 +2,7 @@ const resolution = 576;
 const gd_low = 16;
 const gd_med = 32;
 const gd_high = 64;
+const defaultPenColor = 'rgba(89, 193, 241, 1)';
 
 let mouseDown = false;
 let eraserActive = false;
@@ -19,6 +20,7 @@ const pickr = Pickr.create({
     el: '.color-picker',
     theme: 'monolith', // or 'monolith', or 'nano'
     comparison: false,
+    default: 'rgba(89, 193, 241, 1)',
 
     swatches: [
         'rgba(244, 67, 54, 1)',
@@ -52,8 +54,8 @@ const pickr = Pickr.create({
             hsva: false,
             cmyk: false,
             input: true,
-            clear: true,
-            save: true
+            clear: false,
+            save: false
         }
     }
 });
@@ -219,33 +221,41 @@ function clearGrid(){
 function drawGrids(){
     const grids = document.querySelectorAll('.grid');
 
+    pickr.on('show', (color) => {
+        let selectedColor = color.toRGBA();
+        setGridListeners(grids, `rgba(${selectedColor[0]}, ${selectedColor[1]}, 
+            ${selectedColor[2]}, ${selectedColor[3]})`);
+    });
+
     pickr.on('change', (color) => {
         let selectedColor = color.toRGBA();
+        setGridListeners(grids, `rgba(${selectedColor[0]}, ${selectedColor[1]}, 
+            ${selectedColor[2]}, ${selectedColor[3]})`);
+    });
+}
 
-        grids.forEach(grid => {
-            grid.addEventListener('mousedown', (e) =>{
-                if(eraserActive) return;
-                const currentGrid = e.target;
-                    
-                currentGrid.style.backgroundColor = `rgba(${selectedColor[0]}, ${selectedColor[1]}, 
-                    ${selectedColor[2]}, ${selectedColor[3]})`;
-        
-                mouseDown = true;
-        
-                document.addEventListener('mouseup', () => {
-                    mouseDown = false;
-                })
-            })
-            
-            grid.addEventListener('mouseover', (e) => {
-                if(eraserActive) return;
-                if(mouseDown === false) return;
-                    
-                const currentGrid = e.target;
-        
-                currentGrid.style.backgroundColor = `rgba(${selectedColor[0]}, ${selectedColor[1]}, 
-                    ${selectedColor[2]}, ${selectedColor[3]})`;
+function setGridListeners(grids, penColor){
+    grids.forEach(grid => {
+        grid.addEventListener('mousedown', (e) =>{
+            if(eraserActive) return;
+            const currentGrid = e.target;
+                
+            currentGrid.style.backgroundColor = penColor;
+    
+            mouseDown = true;
+    
+            document.addEventListener('mouseup', () => {
+                mouseDown = false;
             })
         })
-    });
+        
+        grid.addEventListener('mouseover', (e) => {
+            if(eraserActive) return;
+            if(mouseDown === false) return;
+                
+            const currentGrid = e.target;
+    
+            currentGrid.style.backgroundColor = penColor;
+        })
+    })
 }
