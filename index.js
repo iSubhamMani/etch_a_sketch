@@ -10,6 +10,7 @@ const sketchPadContainer = document.querySelector('.sketchpad-container');
 const gdLowBtn = document.querySelector('.gd-low');
 const gdMedBtn = document.querySelector('.gd-medium');
 const gdHighBtn = document.querySelector('.gd-high');
+const clearBtn = document.querySelector('.clear-btn');
 
 // Create Grid at start
 createGrids(gd_low, gd_low);
@@ -28,6 +29,10 @@ gdHighBtn.addEventListener('click', () => {
     removeGridContainer();
     createGrids(gd_high, gd_high);
 });
+
+clearBtn.addEventListener('click', () => {
+    clearGrid();
+})
 
 // Add event listeners to all the grids
 
@@ -98,5 +103,13 @@ function addGridEvents(){
         grid.addEventListener('drop', (e) => {
             e.preventDefault();
         })
+    })
+}
+
+function clearGrid(){
+    const grids = document.querySelectorAll('.grid');
+
+    grids.forEach(grid => {
+        grid.style.backgroundColor = 'white';
     })
 }
