@@ -5,6 +5,7 @@ const gd_high = 64;
 
 let mouseDown = false;
 let eraserActive = false;
+let currentPixelDensity = 'low';
 
 const sketchPadContainer = document.querySelector('.sketchpad-container');
 const gdLowBtn = document.querySelector('.gd-low');
@@ -13,22 +14,41 @@ const gdHighBtn = document.querySelector('.gd-high');
 const clearBtn = document.querySelector('.clear-btn');
 const eraserBtn = document.querySelector('.eraser-btn');
 
-// Create Grid at start
-createGrids(gd_low, gd_low);
+// default settings at startup
+defaultSettings();
 
 gdLowBtn.addEventListener('click', () => {
+    // check for current density
+    if(currentPixelDensity === 'low') return;
+    currentPixelDensity = 'low';
+
     removeGridContainer();
     createGrids(gd_low, gd_low);
+    gdLowBtn.style.backgroundColor = '#99ffcc';
+    gdMedBtn.style.backgroundColor = '#ef5353';
+    gdHighBtn.style.backgroundColor = '#ef5353';
 });
 
 gdMedBtn.addEventListener('click', () => {
+    if(currentPixelDensity === 'med') return;
+    currentPixelDensity = 'med';
+
     removeGridContainer();
     createGrids(gd_med, gd_med);
+    gdLowBtn.style.backgroundColor = '#ef5353';
+    gdMedBtn.style.backgroundColor = '#99ffcc';
+    gdHighBtn.style.backgroundColor = '#ef5353';
 });
 
 gdHighBtn.addEventListener('click', () => {
+    if(currentPixelDensity === 'high') return;
+    currentPixelDensity = 'high';
+
     removeGridContainer();
     createGrids(gd_high, gd_high);
+    gdLowBtn.style.backgroundColor = '#ef5353';
+    gdMedBtn.style.backgroundColor = '#ef5353';
+    gdHighBtn.style.backgroundColor = '#99ffcc';
 });
 
 clearBtn.addEventListener('click', () => {
@@ -38,14 +58,20 @@ clearBtn.addEventListener('click', () => {
 eraserBtn.addEventListener('click', () => {
     if(eraserActive === false){
         eraserActive = true;
+        eraserBtn.style.backgroundColor = '#99ffcc';
+        eraserBtn.style.transition = '0.3s';
         eraseGrids();
     }
     else{
+        eraserBtn.style.backgroundColor = '#ef5353';
         eraserActive = false;
     }
 });
 
-// Add event listeners to all the grids
+function defaultSettings(){
+    createGrids(gd_low, gd_low);
+    gdLowBtn.style.backgroundColor = '#99ffcc';
+}
 
 function getGridContainer(){
     const gridContainer = document.createElement('div');
