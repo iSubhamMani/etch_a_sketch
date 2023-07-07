@@ -50,7 +50,12 @@ body{
 .flex-top-container .color-picker-container .color-picker-text{
     color: #fff;
     font-weight: 500;
+    font-size: 20px;
     margin-right: 10px;
+}
+
+.flex-top-container .color-picker-container .pickr{
+    box-shadow: 2px 2px 4px rgba(240, 255, 238, 0.4);
 }
 
 .flex-top-container .eraser-btn{
