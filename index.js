@@ -225,22 +225,63 @@ function eraseGrids(){
     })
 }
 
-function rgbToHex(r, g, b) {
-    return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1);
+function DarkenColor(col, amt) {
+    var usePound = false;
+  
+    if (col[0] == "#") {
+        col = col.slice(1);
+        usePound = true;
+    }
+ 
+    var num = parseInt(col,16);
+ 
+    var r = (num >> 16) + amt;
+ 
+    if (r > 255) r = 255;
+    else if  (r < 0) r = 0;
+ 
+    var b = ((num >> 8) & 0x00FF) + amt;
+ 
+    if (b > 255) b = 255;
+    else if  (b < 0) b = 0;
+ 
+    var g = (num & 0x0000FF) + amt;
+ 
+    if (g > 255) g = 255;
+    else if (g < 0) g = 0;
+ 
+    return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
 }
 
-/*function shadeGrids(){
+function rgbToHex(rgbColor){
+    let a = rgbColor.split("(")[1].split(")")[0];
+    a = a.split(",");
+
+    let b = a.map(function(x){             //For each array element
+        x = parseInt(x).toString(16);      //Convert to a base16 string
+        return (x.length==1) ? "0"+x : x;  //Add zero if we get only one character
+    })
+
+    b = b.join("");
+    return b;
+}
+
+function shadeGrids(){
     const grids = document.querySelectorAll('.grid');
 
     grids.forEach(grid => {
         grid.addEventListener('mousedown', (e) =>{
             if(shadeActive === false) return;
-
+            mouseDown = true;
             const currentGrid = e.target;
             let currentBg = currentGrid.style.backgroundColor;
-            
-            mouseDown = true;
 
+            if(currentBg === '') return;
+
+            // darken
+            let darkenedColor = DarkenColor(rgbToHex(currentBg), -10);
+            currentGrid.style.backgroundColor = `#${darkenedColor}`;
+            
             document.addEventListener('mouseup', () => {
                 mouseDown = false;
             })
@@ -252,6 +293,11 @@ function rgbToHex(r, g, b) {
             
             const currentGrid = e.target;
             let currentBg = currentGrid.style.backgroundColor;
+            if(currentBg === '') return;
+
+            // darken
+            let darkenedColor = DarkenColor(rgbToHex(currentBg), -10);
+            currentGrid.style.backgroundColor = `#${darkenedColor}`;
         })
 
         grid.addEventListener('dragstart', (e) => {
@@ -266,7 +312,7 @@ function rgbToHex(r, g, b) {
             e.preventDefault();
         })
     })
-}*/
+}
 
 function clearGrid(){
     const grids = document.querySelectorAll('.grid');
