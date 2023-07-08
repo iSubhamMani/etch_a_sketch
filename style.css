@@ -94,7 +94,7 @@ body{
 
 .main-container .sketchpad-container{
     background-color: #fff;
-    box-shadow: 3px 3px 5px rgba(240, 255, 238, 0.4);
+    box-shadow: 2px 2px 4px rgba(193, 193, 193, 0.499);
 }
 
 .sketchpad-container .grid-container{
