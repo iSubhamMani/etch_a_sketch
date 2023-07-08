@@ -136,9 +136,20 @@ body{
 }
 
 .footer{
+    display: flex;
+    padding: 8px 0px;
+    justify-content: center;
+    align-items: center;
+    
+    gap: 10px;
+}
+
+.footer div{
     color: #fff;
-    padding: 8px 4px;
     font-size: 18px;
-    text-align: center;
     font-weight: 400;
+}
+
+.footer img{
+    width: 26px;
 }
