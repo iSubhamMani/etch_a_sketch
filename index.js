@@ -2,10 +2,11 @@ const resolution = 576;
 const gd_low = 16;
 const gd_med = 32;
 const gd_high = 64;
-const defaultPenColor = 'rgba(89, 193, 241, 1)';
+const defaultPenColor = '#59C1F1';
 
 let mouseDown = false;
 let eraserActive = false;
+let shadeActive = false;
 let currentPixelDensity = 'low';
 
 const sketchPadContainer = document.querySelector('.sketchpad-container');
@@ -14,13 +15,14 @@ const gdMedBtn = document.querySelector('.gd-medium');
 const gdHighBtn = document.querySelector('.gd-high');
 const clearBtn = document.querySelector('.clear-btn');
 const eraserBtn = document.querySelector('.eraser-btn');
+const shadeBtn = document.querySelector('.shade-btn');
 
 // Color picker
 const pickr = Pickr.create({
     el: '.color-picker',
     theme: 'monolith', // or 'monolith', or 'nano'
     comparison: false,
-    default: 'rgba(89, 193, 241, 1)',
+    default: '#59C1F1',
 
     swatches: [
         'rgba(244, 67, 54, 1)',
@@ -49,7 +51,7 @@ const pickr = Pickr.create({
         // Input / output Options
         interaction: {
             hex: true,
-            rgba: true,
+            rgba: false,
             hsla: false,
             hsva: false,
             cmyk: false,
@@ -113,6 +115,19 @@ eraserBtn.addEventListener('click', () => {
         eraserActive = false;
     }
 });
+
+shadeBtn.addEventListener('click', () => {
+    if(shadeActive === false){
+        shadeActive = true;
+        shadeBtn.style.backgroundColor = '#99ffcc';
+        shadeBtn.style.transition = '0.3s';
+        shadeGrids();
+    }
+    else{
+        shadeBtn.style.backgroundColor = '#ef5353';
+        shadeActive = false;
+    }
+})
 
 function defaultSettings(){
     createGrids(gd_low, gd_low);
@@ -210,6 +225,49 @@ function eraseGrids(){
     })
 }
 
+function rgbToHex(r, g, b) {
+    return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1);
+}
+
+/*function shadeGrids(){
+    const grids = document.querySelectorAll('.grid');
+
+    grids.forEach(grid => {
+        grid.addEventListener('mousedown', (e) =>{
+            if(shadeActive === false) return;
+
+            const currentGrid = e.target;
+            let currentBg = currentGrid.style.backgroundColor;
+            
+            mouseDown = true;
+
+            document.addEventListener('mouseup', () => {
+                mouseDown = false;
+            })
+        })
+    
+        grid.addEventListener('mouseover', (e) => {
+            if(shadeActive === false) return;
+            if(mouseDown === false) return;
+            
+            const currentGrid = e.target;
+            let currentBg = currentGrid.style.backgroundColor;
+        })
+
+        grid.addEventListener('dragstart', (e) => {
+            e.preventDefault();
+        })
+
+        grid.addEventListener('dragend', (e) => {
+            e.preventDefault();
+        })
+
+        grid.addEventListener('drop', (e) => {
+            e.preventDefault();
+        })
+    })
+}*/
+
 function clearGrid(){
     const grids = document.querySelectorAll('.grid');
 
@@ -222,15 +280,13 @@ function drawGrids(){
     const grids = document.querySelectorAll('.grid');
 
     pickr.on('show', (color) => {
-        let selectedColor = color.toRGBA();
-        setGridListeners(grids, `rgba(${selectedColor[0]}, ${selectedColor[1]}, 
-            ${selectedColor[2]}, ${selectedColor[3]})`);
+        let selectedColor = color.toHEXA();
+        setGridListeners(grids, `#${selectedColor[0]}${selectedColor[1]}${selectedColor[2]}`);
     });
 
     pickr.on('change', (color) => {
-        let selectedColor = color.toRGBA();
-        setGridListeners(grids, `rgba(${selectedColor[0]}, ${selectedColor[1]}, 
-            ${selectedColor[2]}, ${selectedColor[3]})`);
+        let selectedColor = color.toHEXA();
+        setGridListeners(grids, `#${selectedColor[0]}${selectedColor[1]}${selectedColor[2]}`);
     });
 }
 
@@ -238,6 +294,7 @@ function setGridListeners(grids, penColor){
     grids.forEach(grid => {
         grid.addEventListener('mousedown', (e) =>{
             if(eraserActive) return;
+            if(shadeActive) return;
             const currentGrid = e.target;
                 
             currentGrid.style.backgroundColor = penColor;
@@ -251,6 +308,7 @@ function setGridListeners(grids, penColor){
         
         grid.addEventListener('mouseover', (e) => {
             if(eraserActive) return;
+            if(shadeActive) return;
             if(mouseDown === false) return;
                 
             const currentGrid = e.target;
