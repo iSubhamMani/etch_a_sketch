@@ -67,6 +67,15 @@ body{
     border-radius: 4px;
 }
 
+.flex-top-container .shade-btn{
+    color: #0a060af2;
+    background-color: #ef5353;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+
 .flex-bottom-container{
     display: flex;
     align-items: center;
