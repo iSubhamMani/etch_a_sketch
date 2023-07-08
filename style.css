@@ -39,12 +39,13 @@ body{
 .flex-top-container{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 16px;
 }
 
 .flex-top-container .color-picker-container{
     display: flex;
     align-items: center;
+    flex: 1;
 }
 
 .flex-top-container .color-picker-container .color-picker-text{
