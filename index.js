@@ -364,3 +364,9 @@ function setGridListeners(grids, penColor){
         })
     })
 }
+
+setTimeout(() => {
+    const msgBox = document.querySelector('.msg');
+  
+    msgBox.style.display = 'none'
+  }, 4000);
