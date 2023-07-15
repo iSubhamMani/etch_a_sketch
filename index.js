@@ -369,4 +369,4 @@ setTimeout(() => {
     const msgBox = document.querySelector('.msg');
   
     msgBox.style.display = 'none'
-  }, 4000);
+  }, 3000);
