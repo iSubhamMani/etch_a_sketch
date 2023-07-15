@@ -89,6 +89,16 @@ body{
     font-weight: 500;
 }
 
+.flex-top-container .fill-btn{
+    color: #0a060af2;
+    background-color: #ef5353;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
 .flex-bottom-container{
     display: flex;
     align-items: center;

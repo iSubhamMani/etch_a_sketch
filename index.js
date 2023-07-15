@@ -8,6 +8,7 @@ let mouseDown = false;
 let eraserActive = false;
 let shadeActive = false;
 let currentPixelDensity = 'low';
+let bgColor = '59C1F1';
 
 const sketchPadContainer = document.querySelector('.sketchpad-container');
 const gdLowBtn = document.querySelector('.gd-low');
@@ -16,6 +17,7 @@ const gdHighBtn = document.querySelector('.gd-high');
 const clearBtn = document.querySelector('.clear-btn');
 const eraserBtn = document.querySelector('.eraser-btn');
 const shadeBtn = document.querySelector('.shade-btn');
+const fillBtn = document.querySelector('.fill-btn');
 
 // Color picker
 const pickr = Pickr.create({
@@ -61,6 +63,16 @@ const pickr = Pickr.create({
         }
     }
 });
+
+pickr.on('show', (color) => {
+    bgColor = color.toHEXA(); 
+});
+
+pickr.on('change', (color) => {
+    bgColor = color.toHEXA();
+});
+
+// Color darker
 
 const pSBC=(p,c0,c1,l)=>{
 	let r,g,b,P,f,t,h,m=Math.round,a=typeof(c1)=="string";
@@ -156,6 +168,10 @@ shadeBtn.addEventListener('click', () => {
         shadeBtn.style.backgroundColor = '#ef5353';
         shadeActive = false;
     }
+})
+
+fillBtn.addEventListener('click', () => {
+    fillGrids();
 })
 
 function defaultSettings(){
@@ -365,8 +381,16 @@ function setGridListeners(grids, penColor){
     })
 }
 
+function fillGrids(){
+    const grids = document.querySelectorAll('.grid');
+
+    grids.forEach(grid => {
+        grid.style.backgroundColor = `#${bgColor[0]}${bgColor[1]}${bgColor[2]}`;
+    })
+}
+
 setTimeout(() => {
     const msgBox = document.querySelector('.msg');
   
     msgBox.style.display = 'none'
-  }, 3000);
+}, 3000);
