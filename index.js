@@ -2,12 +2,12 @@ const resolution = 576;
 const gd_low = 16;
 const gd_med = 32;
 const gd_high = 64;
-const defaultPenColor = '#59C1F1';
 
 let mouseDown = false;
 let eraserActive = false;
 let shadeActive = false;
 let currentPixelDensity = 'low';
+let penColor = '59C1F1';
 let bgColor = '59C1F1';
 
 const sketchPadContainer = document.querySelector('.sketchpad-container');
@@ -341,15 +341,16 @@ function clearGrid(){
 
 function drawGrids(){
     const grids = document.querySelectorAll('.grid');
+    setGridListeners(grids, `#${penColor[0]}${penColor[1]}${penColor[2]}`);
 
     pickr.on('show', (color) => {
-        let selectedColor = color.toHEXA();
-        setGridListeners(grids, `#${selectedColor[0]}${selectedColor[1]}${selectedColor[2]}`);
+        penColor = color.toHEXA();
+        setGridListeners(grids, `#${penColor[0]}${penColor[1]}${penColor[2]}`);
     });
 
     pickr.on('change', (color) => {
-        let selectedColor = color.toHEXA();
-        setGridListeners(grids, `#${selectedColor[0]}${selectedColor[1]}${selectedColor[2]}`);
+        penColor = color.toHEXA();
+        setGridListeners(grids, `#${penColor[0]}${penColor[1]}${penColor[2]}`);
     });
 }
 
@@ -388,9 +389,3 @@ function fillGrids(){
         grid.style.backgroundColor = `#${bgColor[0]}${bgColor[1]}${bgColor[2]}`;
     })
 }
-
-setTimeout(() => {
-    const msgBox = document.querySelector('.msg');
-  
-    msgBox.style.display = 'none'
-}, 3000);
